@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practica las Tablas de Multiplicar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+    .container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+    h1 {
+      color: #ff6347;
+    }
+    .question {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    .input-answer {
+      padding: 10px;
+      font-size: 16px;
+      width: 100px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #ff6347;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn:hover {
+      background-color: #ff4500;
+    }
+    .feedback {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    .character {
+      margin-top: 20px;
+    }
+    .character img {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>¡Aprende las Tablas!</h1>
+  <div class="question" id="question"></div>
+  <input type="number" id="answer" class="input-answer" placeholder="Respuesta">
+  <button class="btn" onclick="checkAnswer()">Comprobar</button>
+  <div class="feedback" id="feedback"></div>
+  <div class="character" id="character"></div>
+</div>
+
+<script>
+  const questions = [
+    { question: "1 x 1", answer: 1, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "2 x 2", answer: 4, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "3 x 3", answer: 9, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "4 x 4", answer: 16, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "5 x 5", answer: 25, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "6 x 6", answer: 36, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "7 x 7", answer: 49, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "8 x 8", answer: 64, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "9 x 9", answer: 81, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" },
+    { question: "10 x 10", answer: 100, character: "https://www.pngitem.com/pimgs/m/52-528148_cartoon-animal-drawings-animals-png-transparent-png.png" }
+  ];
+
+  let currentQuestionIndex = Math.floor(Math.random() * questions.length);
+
+  function loadQuestion() {
+    const questionData = questions[currentQuestionIndex];
+    document.getElementById("question").textContent = `¿Cuánto es ${questionData.question}?`;
+    document.getElementById("character").innerHTML = `<img src="${questionData.character}" alt="Character">`;
+    document.getElementById("feedback").textContent = '';
+  }
+
+  function checkAnswer() {
+    const userAnswer = parseInt(document.getElementById("answer").value);
+    const correctAnswer = questions[currentQuestionIndex].answer;
+    const feedbackElement = document.getElementById("feedback");
+
+    if (userAnswer === correctAnswer) {
+      feedbackElement.textContent = '¡Correcto! 🎉';
+      feedbackElement.className = 'feedback correct';
+    } else {
+      feedbackElement.textContent = `Incorrecto, la respuesta es ${correctAnswer}. Intenta de nuevo.`;
+      feedbackElement.className = 'feedback incorrect';
+    }
+
+    setTimeout(() => {
+      currentQuestionIndex = Math.floor(Math.random() * questions.length);
+      loadQuestion();
+      document.getElementById("answer").value = '';
+    }, 2000);
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
